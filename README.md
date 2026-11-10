@@ -137,7 +137,7 @@ It publishes `sensor_msgs/msg/Imu` on `/imu/data_raw`, with acceleration in
 matching sensor-data QoS. No orientation estimate is supplied.
 
 After installing ROS 2 Jazzy and the dependencies listed in the
-[ROS 2 guide](docs/ros2.md), build from the repository root:
+[complete ROS 2 installation and setup guide](docs/ros2.md), build from the repository root:
 
 ```bash
 source /opt/ros/jazzy/setup.bash
@@ -153,7 +153,10 @@ ros2 run bmi088_ros listener
 ```
 
 The publisher requires the same `i2c` group access as the standalone reader.
-The listener needs no sensor or I2C access. See [non-root commands, parameters,
+The listener needs no sensor or I2C access. If using `sg`, source ROS inside
+the group-switched shell to preserve library discovery; see the guide.
+Direct non-root publisher startup has been confirmed on the physical board.
+See [non-root commands, parameters,
 and message semantics](docs/ros2.md).
 
 ## Command-line tools

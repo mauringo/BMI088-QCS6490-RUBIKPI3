@@ -228,6 +228,14 @@ do not depend on garbage collection. Reads after close raise `BMI088Error`.
 Methods on one Python instance are serialized with a lock. Do not share an
 instance across `fork()`.
 
+## ROS 2 integration
+
+The optional ROS 2 Jazzy package adds a `sensor_msgs/msg/Imu` publisher and a
+listener. Follow the [complete ROS 2 guide](ros2.md) for fresh installation on
+Ubuntu 24.04 ARM64, colcon build instructions, non-root startup, topic units,
+parameters, reset messages, and the `sg`/`LD_LIBRARY_PATH` troubleshooting fix.
+The standalone driver commands in this guide do not require ROS.
+
 ## C command-line reader
 
 ```bash
