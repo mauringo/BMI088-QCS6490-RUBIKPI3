@@ -28,3 +28,35 @@ jobs:
         run: |
           git check-ignore bmi088 libbmi088.so
           git diff --exit-code
+  ros2:
+    runs-on: ubuntu-24.04
+    container: ros:jazzy-ros-base
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          persist-credentials: false
+      - name: Install ROS test and build dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends build-essential cmake \
+            python3-colcon-common-extensions python3-pytest \
+            ros-jazzy-ament-cmake-python ros-jazzy-ament-cmake-pytest \
+            ros-jazzy-sensor-msgs ros-jazzy-rcl-interfaces
+      - name: Build, test DDS integration, and check installed backend
+        shell: bash
+        run: |
+          source /opt/ros/jazzy/setup.bash
+          colcon build --base-paths ros2 --packages-select bmi088_ros
+          source install/setup.bash
+          colcon test --packages-select bmi088_ros --event-handlers console_direct+
+          colcon test-result --verbose
+          cd /tmp
+          python3 - <<'PY'
+          from bmi088 import _load_library
+          from bmi088_ros.publisher import BMI088Publisher
+          from bmi088_ros.listener import BMI088Listener
+          _load_library()
+          print('Installed ROS package and native backend loaded successfully')
+          PY

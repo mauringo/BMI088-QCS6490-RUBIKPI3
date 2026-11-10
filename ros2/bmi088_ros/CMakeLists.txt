@@ -1,0 +1,30 @@
+cmake_minimum_required(VERSION 3.16)
+project(bmi088_ros LANGUAGES C)
+find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
+get_filename_component(DRIVER_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../.." ABSOLUTE)
+set(BOSCH "${DRIVER_ROOT}/vendor/BMI08x_SensorAPI")
+if(NOT EXISTS "${BOSCH}/bmi08a.c")
+  message(FATAL_ERROR "Bosch submodule missing: run git submodule update --init --recursive")
+endif()
+add_library(bmi088_backend SHARED
+  "${DRIVER_ROOT}/src/bmi088_linux.c"
+  "${BOSCH}/bmi08a.c" "${BOSCH}/bmi08g.c" "${BOSCH}/bmi08xa.c")
+target_include_directories(bmi088_backend PRIVATE "${BOSCH}")
+target_compile_options(bmi088_backend PRIVATE -Wall -Wextra -Wpedantic)
+set_target_properties(bmi088_backend PROPERTIES OUTPUT_NAME bmi088)
+ament_get_python_install_dir(PYTHON_INSTALL_DIR)
+# Install the existing driver beside its shared library, as its loader expects.
+install(FILES "${DRIVER_ROOT}/bmi088.py" DESTINATION "${PYTHON_INSTALL_DIR}")
+install(TARGETS bmi088_backend LIBRARY DESTINATION "${PYTHON_INSTALL_DIR}")
+ament_python_install_package(${PROJECT_NAME})
+install(PROGRAMS scripts/publisher scripts/listener DESTINATION lib/${PROJECT_NAME})
+install(FILES "${DRIVER_ROOT}/LICENSE" "${DRIVER_ROOT}/THIRD_PARTY_NOTICES.md"
+  DESTINATION share/${PROJECT_NAME})
+install(FILES "${BOSCH}/LICENSE" DESTINATION share/${PROJECT_NAME} RENAME BOSCH_LICENSE)
+if(BUILD_TESTING)
+  find_package(ament_cmake_pytest REQUIRED)
+  ament_add_pytest_test(ros_nodes test/test_nodes.py TIMEOUT 60
+    APPEND_ENV PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR}:${DRIVER_ROOT})
+endif()
+ament_package()

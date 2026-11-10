@@ -129,6 +129,33 @@ velocity near zero. Opening the sensor resets and configures both components.
 Use a context manager to release the device lock. See the
 [full API and lifecycle documentation](docs/guide.md#python-library-api).
 
+## ROS 2 publisher and listener
+
+The optional [`bmi088_ros` package](ros2/bmi088_ros) targets **ROS 2 Jazzy**.
+It publishes `sensor_msgs/msg/Imu` on `/imu/data_raw`, with acceleration in
+**m/s²** and angular velocity in **rad/s**. A listener example subscribes with
+matching sensor-data QoS. No orientation estimate is supplied.
+
+After installing ROS 2 Jazzy and the dependencies listed in the
+[ROS 2 guide](docs/ros2.md), build from the repository root:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+colcon build --base-paths ros2 --packages-select bmi088_ros
+source install/setup.bash
+ros2 run bmi088_ros publisher
+```
+
+In a second terminal, source the same setup files and run:
+
+```bash
+ros2 run bmi088_ros listener
+```
+
+The publisher requires the same `i2c` group access as the standalone reader.
+The listener needs no sensor or I2C access. See [non-root commands, parameters,
+and message semantics](docs/ros2.md).
+
 ## Command-line tools
 
 ```bash

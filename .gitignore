@@ -13,3 +13,9 @@ venv/
 .DS_Store
 .vscode/
 .idea/
+
+# ROS 2 / colcon build outputs
+/build/
+/install/
+/log/
+.pytest_cache/
