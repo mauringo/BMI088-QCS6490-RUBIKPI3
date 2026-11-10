@@ -1,5 +1,8 @@
 # Third-party notices
 
+The project's own code is licensed under the [MIT License](LICENSE). This does
+not change the licenses or copyright notices of third-party dependencies.
+
 ## Bosch BMI08x SensorAPI
 
 - Upstream: https://github.com/boschsensortec/BMI08x_SensorAPI

@@ -185,7 +185,7 @@ Other bus errors remain errors. See [implementation details and troubleshooting]
 
 ## License
 
-Project code is licensed under [BSD-3-Clause](LICENSE). The Bosch submodule
+Project code is licensed under the [MIT License](LICENSE). The Bosch submodule
 retains its own [BSD-3-Clause license](vendor/BMI08x_SensorAPI/LICENSE) and
 copyright notices. This is an independent integration, not an official Bosch,
 Qualcomm, or Thundercomm product.
