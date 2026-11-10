@@ -49,12 +49,22 @@ source install/setup.bash
 ros2 run bmi088_ros publisher
 ```
 
-If the group was added after you logged in, run this after sourcing the same
-setup files. `sg` preserves the ROS environment while applying the group:
+If the group was added after you logged in, source ROS **inside** the new
+shell, after `sg` applies the group. The system may remove `LD_LIBRARY_PATH`
+when starting `sg`; sourcing ROS only before `sg` is not sufficient.
 
 ```bash
-sg i2c -c 'ros2 run bmi088_ros publisher'
+sg i2c -c 'bash -c "
+  source /opt/ros/jazzy/setup.bash
+  source /home/ubuntu/BMI088/install/setup.bash
+  exec ros2 run bmi088_ros publisher
+"'
 ```
+
+Adjust the overlay path if your checkout is elsewhere. Alternatively, reconnect
+via SSH or run `newgrp i2c`, then source both setup files and run `ros2 run`
+directly. An import error for `librcl_action.so` with the file present can be
+caused by the environment being cleared during the group switch.
 
 In another terminal:
 
@@ -85,9 +95,10 @@ Parameters are configured at startup and read-only afterward.
 Example:
 
 ```bash
-sg i2c -c 'ros2 run bmi088_ros publisher --ros-args \
+# In a shell with i2c membership and both ROS setup files sourced:
+ros2 run bmi088_ros publisher --ros-args \
   -p device:=/dev/i2c-1 -p publish_rate_hz:=50.0 \
-  -p frame_id:=imu_link -p topic:=/robot/imu/data_raw'
+  -p frame_id:=imu_link -p topic:=/robot/imu/data_raw
 
 ros2 run bmi088_ros listener --ros-args -p topic:=/robot/imu/data_raw
 ```
@@ -151,6 +162,6 @@ validation, read errors, and cleanup. GitHub Actions runs these checks in a ROS
 2 Jazzy container. The installed backend is also checked from outside the source
 checkout to catch missing shared libraries.
 
-The standalone hardware driver was previously tested on this board. Live ROS
-publisher/listener operation on the board still requires installing ROS 2 and
-running the nodes; software/DDS tests do not replace that hardware check.
+The standalone hardware driver was previously tested on this board. A five-second non-root ROS publisher startup check subsequently passed on the
+board after sourcing ROS inside the group-switched shell. End-to-end hardware
+message validation remains separate from the simulated-sensor DDS tests.
