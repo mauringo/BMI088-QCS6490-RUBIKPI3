@@ -19,3 +19,10 @@ Upstream license and notices must accompany redistributed source/binaries.
 for this project, edited using OpenAI's built-in image generation tool.
 Hardware names and logos in the photograph identify the pictured equipment;
 they do not imply endorsement or affiliation.
+
+## Hardware setup photograph
+
+`docs/images/qcs6490-rubik-pi3-setup.png` is the user-supplied photograph of the
+Qualcomm QCS6490-based RUBIK Pi 3 prototype. It is reproduced without edits.
+Use the wiring table rather than inferring individual connections from this
+overview photograph.

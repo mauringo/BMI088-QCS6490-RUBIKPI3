@@ -1,5 +1,7 @@
 # BMI088 on Qualcomm QCS6490 — RUBIK Pi 3
 
+![Qualcomm QCS6490-based RUBIK Pi 3 with an I2C sensor prototype](docs/images/qcs6490-rubik-pi3-setup.png)
+
 Bring **Bosch BMI088 inertial sensing to the Qualcomm QCS6490 platform** with
 C and Python interfaces, tested on **RUBIK Pi 3 running Ubuntu Server**. Both interfaces use the official Bosch SensorAPI through a shared
 Linux I2C backend. Normal operation requires **no root or sudo**.
@@ -69,6 +71,20 @@ sudo usermod -aG i2c "$USER"
 Reconnect over SSH and verify that `/dev/i2c-1` belongs to group `i2c` with mode
 `0660`. If it does not, follow the [permission setup](docs/guide.md#device-permissions-one-time-setup).
 No sudo is needed to build or run afterward.
+
+## Components
+
+| Component | Requirement |
+| --- | --- |
+| Host board | **RUBIK Pi 3 or a Qualcomm QCS6490-based board** running Linux with an accessible I2C bus. |
+| IMU module | [**Seeed Studio Grove – 6-Axis Accelerometer & Gyroscope (BMI088)**](https://www.seeedstudio.com/Grove-6-Axis-Accelerometer-Gyroscope-BMI088.html), SKU **101020584**, with I2C support, configured for accelerometer address `0x18` and gyroscope address `0x68`. |
+| Wiring | Leads or a suitable connector cable for **3.3 V, GND, SDA, and SCL**. |
+| Power supply | A power supply suitable for the host board. |
+| Optional prototyping hardware | Breadboard and jumper wires, as shown in the setup photograph. |
+
+**Verified setup:** RUBIK Pi 3 with Ubuntu Server. Other Qualcomm QCS6490-based
+boards need their own header pinout, I2C bus selection, and device permissions;
+the RUBIK Pi 3 pin numbers below must not be assumed to apply to them.
 
 ## Wiring
 

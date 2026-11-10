@@ -30,6 +30,20 @@ Alternatively, run `newgrp i2c` once in an existing shell. It starts a subshell
 with the new group; use `exit` to leave it. `sg` applies that group to just the
 specified command.
 
+## Components
+
+| Component | Requirement |
+| --- | --- |
+| Host board | **RUBIK Pi 3 or a Qualcomm QCS6490-based board** running Linux with an accessible I2C bus. |
+| IMU module | [**Seeed Studio Grove – 6-Axis Accelerometer & Gyroscope (BMI088)**](https://www.seeedstudio.com/Grove-6-Axis-Accelerometer-Gyroscope-BMI088.html), SKU **101020584**, with I2C support, configured for accelerometer address `0x18` and gyroscope address `0x68`. |
+| Wiring | Leads or a suitable connector cable for **3.3 V, GND, SDA, and SCL**. |
+| Power supply | A power supply suitable for the host board. |
+| Optional prototyping hardware | Breadboard and jumper wires, as shown in the setup photograph. |
+
+**Verified setup:** RUBIK Pi 3 with Ubuntu Server. Other Qualcomm QCS6490-based
+boards need their own header pinout, I2C bus selection, and device permissions;
+the RUBIK Pi 3 pin numbers below must not be assumed to apply to them.
+
 ## Wiring
 
 Disconnect board power before wiring. These are **physical header positions**,
