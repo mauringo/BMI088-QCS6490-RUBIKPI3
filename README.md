@@ -1,19 +1,44 @@
-# BMI088 for RUBIK Pi 3
+# BMI088 on Qualcomm QCS6490 — RUBIK Pi 3
 
-C and Python drivers for the **Bosch BMI088** on **RUBIK Pi 3 / QCS6490** with
-Ubuntu Server. Both interfaces use the official Bosch SensorAPI through a shared
+Bring **Bosch BMI088 inertial sensing to the Qualcomm QCS6490 platform** with
+C and Python interfaces, tested on **RUBIK Pi 3 running Ubuntu Server**. Both interfaces use the official Bosch SensorAPI through a shared
 Linux I2C backend. Normal operation requires **no root or sudo**.
 
 - Official Bosch driver pinned to a tested commit.
 - Python API using standard-library `ctypes`; no pip dependencies.
 - Accelerometer in g or m/s² and gyroscope in degrees/s.
 - Verified reset handling and exclusive access across C/Python readers.
-- Hardware-tested on ARM64; automated tests also run without a sensor.
+- Hardware-tested on the Qualcomm QCS6490-based RUBIK Pi 3 (ARM64).
+- Automated build and API tests also run without a sensor.
+
+## Qualcomm QCS6490 integration
+
+This project connects a BMI088 accelerometer and gyroscope to **Qualcomm
+QCS6490-based hardware** using the Linux I2C userspace interface. **RUBIK Pi 3**
+is the reference board used for wiring, device permissions, and hardware testing.
+
+| Layer | Implementation |
+| --- | --- |
+| Qualcomm platform | **QCS6490**, running ARM64 Linux |
+| Verified development board | **RUBIK Pi 3** |
+| Operating system | Ubuntu Server |
+| Sensor connection | Board header I2C1, exposed as `/dev/i2c-1` |
+| Sensor driver | Official Bosch BMI08x SensorAPI |
+| Application interfaces | Native C and Python (`ctypes`) |
+
+The adapter uses standard Linux `i2c-dev`, not a Qualcomm-specific sensor SDK.
+Other QCS6490 boards require their own pinout, bus mapping, and kernel setup;
+compatibility with those boards has not been verified. The header pin numbers
+in this repository apply specifically to RUBIK Pi 3.
 
 ## Quick start
 
-Clone this repository with **`git clone --recurse-submodules <repository-url>`**.
-Inside an existing checkout, initialize the Bosch dependency with:
+```bash
+git clone --recurse-submodules https://github.com/mauringo/BMI088-QCS6490-RUBIKPI3.git
+cd BMI088-QCS6490-RUBIKPI3
+```
+
+Inside the checkout, initialize the Bosch dependency and build:
 
 ```bash
 git submodule update --init --recursive
@@ -146,5 +171,5 @@ Other bus errors remain errors. See [implementation details and troubleshooting]
 
 Project code is licensed under [BSD-3-Clause](LICENSE). The Bosch submodule
 retains its own [BSD-3-Clause license](vendor/BMI08x_SensorAPI/LICENSE) and
-copyright notices. This is an independent integration, not an official Bosch
-or Thundercomm product.
+copyright notices. This is an independent integration, not an official Bosch,
+Qualcomm, or Thundercomm product.

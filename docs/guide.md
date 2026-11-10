@@ -1,6 +1,6 @@
-# BMI088 on RUBIK Pi 3 — Linux and Python
+# BMI088 on Qualcomm QCS6490 / RUBIK Pi 3 — Linux and Python
 
-Read a Bosch BMI088 over I2C on RUBIK Pi 3 (QCS6490), running Ubuntu Server.
+Read a Bosch BMI088 over I2C on the Qualcomm QCS6490-based RUBIK Pi 3, running Ubuntu Server.
 Both the C executable and the Python library use the **official Bosch
 [BMI08x SensorAPI](https://github.com/boschsensortec/BMI08x_SensorAPI)** through
 the same Linux backend. Python does not reimplement sensor registers or parse
