@@ -1,0 +1,3 @@
+[submodule "vendor/BMI08x_SensorAPI"]
+	path = vendor/BMI08x_SensorAPI
+	url = https://github.com/boschsensortec/BMI08x_SensorAPI.git

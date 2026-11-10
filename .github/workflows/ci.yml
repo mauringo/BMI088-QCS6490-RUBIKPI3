@@ -1,0 +1,30 @@
+name: Build and test
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        python: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Build with warnings as errors
+        run: make CFLAGS='-O2 -Wall -Wextra -Wpedantic -Werror'
+      - name: Test without hardware
+        run: make test PYTHON=python
+      - name: Verify generated files are ignored
+        run: |
+          git check-ignore bmi088 libbmi088.so
+          git diff --exit-code

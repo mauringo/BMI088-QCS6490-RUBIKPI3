@@ -1,0 +1,15 @@
+# Native build outputs
+/bmi088
+/libbmi088.so
+*.o
+# Python caches and environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+# Local diagnostics and editor files
+*.log
+.env
+.DS_Store
+.vscode/
+.idea/
