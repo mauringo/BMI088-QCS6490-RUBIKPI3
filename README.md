@@ -77,7 +77,7 @@ No sudo is needed to build or run afterward.
 | Component | Requirement |
 | --- | --- |
 | Host board | **RUBIK Pi 3 or a Qualcomm QCS6490-based board** running Linux with an accessible I2C bus. |
-| IMU module | [**Seeed Studio Grove – 6-Axis Accelerometer & Gyroscope (BMI088)**](https://www.seeedstudio.com/Grove-6-Axis-Accelerometer-Gyroscope-BMI088.html), SKU **101020584**, with I2C support, configured for accelerometer address `0x18` and gyroscope address `0x68`. |
+| IMU module | [**Seeed Studio Grove – 6-Axis Accelerometer & Gyroscope (BMI088)**](https://www.seeedstudio.com/Grove-6-Axis-Accelerometer-Gyroscope-BMI088.html), SKU **101020584** ([DigiKey](https://www.digikey.com/en/products/detail/seeed-technology-co-ltd/101020584/9697034)), with I2C support, configured for accelerometer address `0x18` and gyroscope address `0x68`. |
 | Wiring | Leads or a suitable connector cable for **3.3 V, GND, SDA, and SCL**. |
 | Power supply | A power supply suitable for the host board. |
 | Optional prototyping hardware | Breadboard and jumper wires, as shown in the setup photograph. |
@@ -87,6 +87,20 @@ boards need their own header pinout, I2C bus selection, and device permissions;
 the RUBIK Pi 3 pin numbers below must not be assumed to apply to them.
 
 ## Wiring
+
+![Grove BMI088 connector and RUBIK Pi 3 header connections](docs/images/bmi088-rubikpi3-wiring.png)
+
+The annotated board view highlights the actual header positions: pin 1 (3.3 V),
+pin 3 (SDA), and pin 5 (SCL) are on the fan-side row; pin 6 (GND) is directly
+above pin 5 on the board-edge row. These AI-assisted illustrations are based on
+the supplied photographs; verify the physical pin numbers before wiring.
+
+The diagram maps Grove **VCC → pin 1 (3.3 V)**, **GND → pin 6**,
+**SDA → pin 3**, and **SCL → pin 5**. Use a Grove-to-female jumper
+cable or suitable adapter for the 40-pin header; a Grove-to-Grove cable alone
+does not plug directly into that header. Follow signal labels rather than
+assuming that cable colors match the diagram. The module connector illustration
+and signal-mapping block are distinct from the physical header layout.
 
 **Power off before wiring.** Numbers below are physical header positions.
 

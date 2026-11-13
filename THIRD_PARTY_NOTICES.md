@@ -29,3 +29,13 @@ they do not imply endorsement or affiliation.
 Qualcomm QCS6490-based RUBIK Pi 3 prototype. It is reproduced without edits.
 Use the wiring table rather than inferring individual connections from this
 overview photograph.
+
+## Grove connection diagram
+
+`docs/images/bmi088-rubikpi3-wiring.png` is an AI-assisted illustration generated
+with OpenAI's built-in image generation tool from the supplied Seeed module
+image and RUBIK Pi board photograph. It is not an unmodified photograph.
+Prompt: merge the Grove connector close-up and annotated RUBIK Pi header into
+one English wiring poster, preserving SCL → pin 5, SDA → pin 3, VCC → pin 1
+(3.3 V), GND → pin 6, connector labels, and board-edge/fan orientation.
+Signal colors are illustrative, not cable color guarantees.
